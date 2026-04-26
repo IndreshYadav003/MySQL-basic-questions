@@ -1,0 +1,11 @@
+--- create data base ---
+create database collage2;
+use collage2;
+--- create table ---
+create table student3 (
+rollno int,
+name varchar(50),
+age int,
+sgpa int,
+phoneno  int
+) ;
