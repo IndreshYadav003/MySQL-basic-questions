@@ -1,0 +1,22 @@
+--- create data base ---
+create database collage2;
+use collage2;
+--- create table ---
+create table student3 (
+rollno int,
+name varchar(50),
+age int,
+sgpa int,
+phoneno  int
+) ;
+--- insert valuse into the tables --
+insert into student3
+values
+(1,"Indresh",23,89,91),
+(2,"gopal",33,39,91),
+(3,"Indresh",22,89,91),
+(4,"ruban",23,89,91),
+(5,"arvind",33,79,91),
+(6,"kamlesh",22,69,91),
+(7,"jiatender",22,59,91);
+select  * from student3 ;
