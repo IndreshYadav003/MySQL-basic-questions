@@ -1,0 +1,21 @@
+import requests
+URL="https://stephen-king-api.onrender.com/api/shorts"
+RES= requests.get(URL)
+print(RES.text)
+print(RES.status_code )
+data=RES.json()
+print(data)
+
+
+
+import pandas as pd
+df=pd.json_normalize(data)
+print(df.head())
+
+
+
+
+import pandas as pd
+df=pd.json_normalize(data["data"])
+df=df[['id','title']]
+print(df)
