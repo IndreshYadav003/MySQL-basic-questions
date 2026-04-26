@@ -1,0 +1,39 @@
+--- create data base ---
+create database collage2;
+use collage2;
+--- create table ---
+create table student3 (
+rollno int,
+name varchar(50),
+age int,
+sgpa int,
+phoneno  int
+) ;
+--- insert valuse into the tables --
+insert into student3
+values
+(1,"Indresh",23,89,91),
+(2,"gopal",33,39,91),
+(3,"Indresh",22,89,91),
+(4,"ruban",23,89,91),
+(5,"arvind",33,79,91),
+(6,"kamlesh",22,69,91),
+(7,"jiatender",22,59,91);
+ ----  Aggeragtion functions ---
+ select min(age) from student3 ;
+SELECT * FROM student3 WHERE sgpa >= MIN(sgpa);
+SELECT name 
+FROM student3 
+ORDER BY age ASC 
+LIMIT 1;
+  
+SELECT name 
+FROM student3 
+WHERE age = (SELECT MIN(age) FROM student3);
+ SELECT COUNT(*) AS total_students 
+FROM student3;
+ SELECT SUM(sgpa) AS total_sgpa 
+FROM student3;
+SELECT SUM(sgpa) AS total_sgpa 
+FROM student3;
+SELECT AVG(sgpa) 
