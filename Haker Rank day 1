@@ -1,0 +1,823 @@
+SQL-CITY-STATION-PRACTICE/
+│
+├── README.md
+│
+├── CITY/
+│   ├── 01_basic_select.sql
+│   ├── 02_where.sql
+│   ├── 03_distinct.sql
+│   ├── 04_aggregate.sql
+│   ├── 05_group_by.sql
+│   ├── 06_having.sql
+│   ├── 07_order_by.sql
+│   └── 08_subqueries.sql
+│
+├── STATION/
+│   ├── 01_basic_select.sql
+│   ├── 02_where.sql
+│   ├── 03_distinct.sql
+│   ├── 04_string_functions.sql
+│   ├── 05_aggregate.sql
+│   ├── 06_group_by.sql
+│   └── 07_subqueries.sql
+│
+└── solutions/
+    └── answers.sql
+
+
+| Column        | Data Type | Description     |
+| ------------- | --------- | --------------- |
+| `ID`          | INT       | Unique city ID  |
+| `NAME`        | VARCHAR   | City name       |
+| `COUNTRYCODE` | CHAR(3)   | Country code    |
+| `DISTRICT`    | VARCHAR   | District/state  |
+| `POPULATION`  | INT       | City population |
+
+| Column   | Data Type | Description       |
+| -------- | --------- | ----------------- |
+| `ID`     | INT       | Station ID        |
+| `CITY`   | VARCHAR   | City name         |
+| `STATE`  | VARCHAR   | State name        |
+| `LAT_N`  | DECIMAL   | Northern latitude |
+| `LONG_W` | DECIMAL   | Western longitude |
+
+Level 1 — Basic SELECT
+Query all columns from CITY.
+Query only NAME from CITY.
+Query all columns from STATION.
+Query only CITY from STATION.
+Query ID, NAME, and COUNTRYCODE from CITY.
+Query CITY, STATE, and LAT_N from STATION.
+Find all cities with COUNTRYCODE = 'USA'.
+Find all Japanese cities (JPN).
+Find all Indian cities (IND).
+Find the city with ID = 1661.
+-- 1. All columns from CITY
+SELECT * FROM CITY;
+
+-- 2. Only NAME
+SELECT NAME FROM CITY;
+
+-- 3. All columns from STATION
+SELECT * FROM STATION;
+
+-- 4. Only CITY from STATION
+SELECT CITY FROM STATION;
+
+-- 5. ID, NAME, COUNTRYCODE
+SELECT ID, NAME, COUNTRYCODE FROM CITY;
+
+-- 6. CITY, STATE, LAT_N
+SELECT CITY, STATE, LAT_N FROM STATION;
+
+-- 7. American cities
+SELECT * FROM CITY
+WHERE COUNTRYCODE = 'USA';
+
+-- 8. Japanese cities
+SELECT * FROM CITY
+WHERE COUNTRYCODE = 'JPN';
+
+-- 9. Indian cities
+SELECT * FROM CITY
+WHERE COUNTRYCODE = 'IND';
+
+-- 10. City ID 1661
+SELECT * FROM CITY
+WHERE ID = 1661;
+🟢 Level 2 — WHERE Conditions
+Find cities with population greater than 100000.
+Find cities with population less than 100000.
+Find cities with population equal to 100000.
+Find cities with population greater than 500000.
+Find cities with population between 100000 and 500000.
+Find American cities with population greater than 120000.
+Find cities whose population is not 0.
+Find cities with COUNTRYCODE = 'IND' and population > 100000.
+Find cities with population between 50000 and 200000.
+Find cities whose ID is greater than 500.
+
+-- 11. Population > 100000
+SELECT * FROM CITY
+WHERE POPULATION > 100000;
+
+-- 12. Population < 100000
+SELECT * FROM CITY
+WHERE POPULATION < 100000;
+
+-- 13. Population = 100000
+SELECT * FROM CITY
+WHERE POPULATION = 100000;
+
+-- 14. Population > 500000
+SELECT * FROM CITY
+WHERE POPULATION > 500000;
+
+-- 15. Population between 100000 and 500000
+SELECT * FROM CITY
+WHERE POPULATION BETWEEN 100000 AND 500000;
+
+-- 16. USA cities with population > 120000
+SELECT * FROM CITY
+WHERE COUNTRYCODE = 'USA'
+AND POPULATION > 120000;
+
+-- 17. Population not 0
+SELECT * FROM CITY
+WHERE POPULATION <> 0;
+
+-- 18. India + population > 100000
+SELECT * FROM CITY
+WHERE COUNTRYCODE = 'IND'
+AND POPULATION > 100000;
+
+-- 19. Population between 50000 and 200000
+SELECT * FROM CITY
+WHERE POPULATION BETWEEN 50000 AND 200000;
+
+-- 20. ID > 500
+SELECT * FROM CITY
+WHERE ID > 500;
+🟡 Level 3 — DISTINCT
+List distinct city names from STATION.
+List distinct state names from STATION.
+List distinct country codes from CITY.
+Find the number of distinct city names in STATION.
+Find the number of distinct states in STATION.
+Find city names having even ID.
+Find city names having odd ID.
+Find distinct cities where LAT_N > 50.
+Find distinct cities where LONG_W < 0.
+Find distinct city names starting with A.
+-- 21
+SELECT DISTINCT CITY FROM STATION;
+
+-- 22
+SELECT DISTINCT STATE FROM STATION;
+
+-- 23
+SELECT DISTINCT COUNTRYCODE FROM CITY;
+
+-- 24
+SELECT COUNT(DISTINCT CITY)
+FROM STATION;
+
+-- 25
+SELECT COUNT(DISTINCT STATE)
+FROM STATION;
+
+-- 26. Even IDs
+SELECT DISTINCT CITY
+FROM STATION
+WHERE MOD(ID, 2) = 0;
+
+-- 27. Odd IDs
+SELECT DISTINCT CITY
+FROM STATION
+WHERE MOD(ID, 2) <> 0;
+
+-- 28. Latitude > 50
+SELECT DISTINCT CITY
+FROM STATION
+WHERE LAT_N > 50;
+
+-- 29. Longitude < 0
+SELECT DISTINCT CITY
+FROM STATION
+WHERE LONG_W < 0;
+
+-- 30. City starts with A
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY LIKE 'A%';
+🟡 Level 4 — String Conditions
+Find cities starting with A.
+Find cities starting with E.
+Find cities starting with I.
+Find cities starting with O.
+Find cities starting with U.
+Find cities ending with a.
+Find cities ending with n.
+Find cities containing a.
+Find cities containing India.
+Find cities whose name has exactly 5 characters.
+Find cities whose name has more than 5 characters.
+Find cities whose name has less than 5 characters.
+Find cities starting and ending with a vowel.
+Find cities that do not start with a vowel.
+Find cities that do not end with a vowel.
+-- 31
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY LIKE 'A%';
+
+-- 32
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY LIKE 'E%';
+
+-- 33
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY LIKE 'I%';
+
+-- 34
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY LIKE 'O%';
+
+-- 35
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY LIKE 'U%';
+
+-- 36. Ends with a
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY LIKE '%a';
+
+-- 37. Ends with n
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY LIKE '%n';
+
+-- 38. Contains a
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY LIKE '%a%';
+
+-- 39. Contains India
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY LIKE '%India%';
+
+-- 40. Exactly 5 characters
+SELECT DISTINCT CITY
+FROM STATION
+WHERE LENGTH(CITY) = 5;
+
+-- 41. More than 5 characters
+SELECT DISTINCT CITY
+FROM STATION
+WHERE LENGTH(CITY) > 5;
+
+-- 42. Less than 5 characters
+SELECT DISTINCT CITY
+FROM STATION
+WHERE LENGTH(CITY) < 5;
+
+-- 43. Starts and ends with vowel
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY LIKE 'A%'
+   OR CITY LIKE 'E%'
+   OR CITY LIKE 'I%'
+   OR CITY LIKE 'O%'
+   OR CITY LIKE 'U%';
+
+-- 44. Does not start with vowel
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY NOT LIKE 'A%'
+  AND CITY NOT LIKE 'E%'
+  AND CITY NOT LIKE 'I%'
+  AND CITY NOT LIKE 'O%'
+  AND CITY NOT LIKE 'U%';
+
+-- 45. Does not end with vowel
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY NOT LIKE '%a'
+  AND CITY NOT LIKE '%e'
+  AND CITY NOT LIKE '%i'
+  AND CITY NOT LIKE '%o'
+  AND CITY NOT LIKE '%u';
+🟡 Level 5 — AND / OR / NOT
+Find USA cities with population > 100000.
+Find USA cities with population > 500000 and ID > 1000.
+Find cities from USA or IND.
+Find cities not from USA.
+Find cities where population > 100000 AND population < 500000.
+Find cities where population < 100000 OR population > 1000000.
+Find cities from IND, USA, or JPN.
+Find cities whose country code is not USA.
+Find cities with ID between 100 and 500.
+Find cities where country code is USA AND name starts with A.
+-- 46
+SELECT * FROM CITY
+WHERE COUNTRYCODE = 'USA'
+AND POPULATION > 100000;
+
+-- 47
+SELECT * FROM CITY
+WHERE COUNTRYCODE = 'USA'
+AND POPULATION > 500000
+AND ID > 1000;
+
+-- 48
+SELECT * FROM CITY
+WHERE COUNTRYCODE = 'USA'
+OR COUNTRYCODE = 'IND';
+
+-- 49
+SELECT * FROM CITY
+WHERE COUNTRYCODE <> 'USA';
+
+-- 50
+SELECT * FROM CITY
+WHERE POPULATION > 100000
+AND POPULATION < 500000;
+
+-- 51
+SELECT * FROM CITY
+WHERE POPULATION < 100000
+OR POPULATION > 1000000;
+
+-- 52
+SELECT * FROM CITY
+WHERE COUNTRYCODE IN ('IND','USA','JPN');
+
+-- 53
+SELECT * FROM CITY
+WHERE COUNTRYCODE <> 'USA';
+
+-- 54
+SELECT * FROM CITY
+WHERE ID BETWEEN 100 AND 500;
+
+-- 55
+SELECT * FROM CITY
+WHERE COUNTRYCODE = 'USA'
+AND NAME LIKE 'A%';
+🟠 Level 6 — Aggregate Functions
+Find the total population of all cities.
+Find the average city population.
+Find the maximum population.
+Find the minimum population.
+Find the number of cities.
+Find the number of cities in USA.
+Find the total population of USA cities.
+Find the average population of USA cities.
+Find the maximum population among USA cities.
+Find the minimum population among USA cities.
+-- 56. Total population
+SELECT SUM(POPULATION)
+FROM CITY;
+
+-- 57. Average population
+SELECT AVG(POPULATION)
+FROM CITY;
+
+-- 58. Maximum population
+SELECT MAX(POPULATION)
+FROM CITY;
+
+-- 59. Minimum population
+SELECT MIN(POPULATION)
+FROM CITY;
+
+-- 60. Number of cities
+SELECT COUNT(*)
+FROM CITY;
+
+-- 61. Number of USA cities
+SELECT COUNT(*)
+FROM CITY
+WHERE COUNTRYCODE = 'USA';
+
+-- 62. Total USA population
+SELECT SUM(POPULATION)
+FROM CITY
+WHERE COUNTRYCODE = 'USA';
+
+-- 63. Average USA population
+SELECT AVG(POPULATION)
+FROM CITY
+WHERE COUNTRYCODE = 'USA';
+
+-- 64. Maximum USA population
+SELECT MAX(POPULATION)
+FROM CITY
+WHERE COUNTRYCODE = 'USA';
+
+-- 65. Minimum USA population
+SELECT MIN(POPULATION)
+FROM CITY
+WHERE COUNTRYCODE = 'USA';
+🟠 Level 7 — STATION Numerical Problems
+Find the maximum LAT_N.
+Find the minimum LAT_N.
+Find the maximum LONG_W.
+Find the minimum LONG_W.
+Find the average LAT_N.
+Find the average LONG_W.
+Find cities north of latitude 40.
+Find cities south of latitude 20.
+Find cities east of longitude 50.
+Find cities west of longitude 50.
+-- 66
+SELECT MAX(LAT_N)
+FROM STATION;
+
+-- 67
+SELECT MIN(LAT_N)
+FROM STATION;
+
+-- 68
+SELECT MAX(LONG_W)
+FROM STATION;
+
+-- 69
+SELECT MIN(LONG_W)
+FROM STATION;
+
+-- 70
+SELECT AVG(LAT_N)
+FROM STATION;
+
+-- 71
+SELECT AVG(LONG_W)
+FROM STATION;
+
+-- 72
+SELECT *
+FROM STATION
+WHERE LAT_N > 40;
+
+-- 73
+SELECT *
+FROM STATION
+WHERE LAT_N < 20;
+
+-- 74
+SELECT *
+FROM STATION
+WHERE LONG_W > 50;
+
+-- 75
+SELECT *
+FROM STATION
+WHERE LONG_W < 50;
+🔴 Level 8 — GROUP BY
+Count cities for each country code.
+Find average population for each country.
+Find maximum population for each country.
+Find minimum population for each country.
+Find total population for each country.
+Count cities for each state in STATION.
+Find average latitude by state.
+Find maximum latitude by state.
+Find minimum longitude by state.
+Find countries having more than 5 cities.
+-- 76. Number of cities by country
+SELECT COUNTRYCODE, COUNT(*) AS CITY_COUNT
+FROM CITY
+GROUP BY COUNTRYCODE;
+
+-- 77. Average population by country
+SELECT COUNTRYCODE, AVG(POPULATION) AS AVG_POPULATION
+FROM CITY
+GROUP BY COUNTRYCODE;
+
+-- 78. Maximum population by country
+SELECT COUNTRYCODE, MAX(POPULATION) AS MAX_POPULATION
+FROM CITY
+GROUP BY COUNTRYCODE;
+
+-- 79. Minimum population by country
+SELECT COUNTRYCODE, MIN(POPULATION) AS MIN_POPULATION
+FROM CITY
+GROUP BY COUNTRYCODE;
+
+-- 80. Total population by country
+SELECT COUNTRYCODE, SUM(POPULATION) AS TOTAL_POPULATION
+FROM CITY
+GROUP BY COUNTRYCODE;
+
+-- 81. Number of stations by state
+SELECT STATE, COUNT(*) AS STATION_COUNT
+FROM STATION
+GROUP BY STATE;
+
+-- 82. Average latitude by state
+SELECT STATE, AVG(LAT_N) AS AVG_LATITUDE
+FROM STATION
+GROUP BY STATE;
+
+-- 83. Maximum latitude by state
+SELECT STATE, MAX(LAT_N) AS MAX_LATITUDE
+FROM STATION
+GROUP BY STATE;
+
+-- 84. Minimum longitude by state
+SELECT STATE, MIN(LONG_W) AS MIN_LONGITUDE
+FROM STATION
+GROUP BY STATE;
+
+-- 85. Countries with more than 5 cities
+SELECT COUNTRYCODE, COUNT(*) AS CITY_COUNT
+FROM CITY
+GROUP BY COUNTRYCODE
+HAVING COUNT(*) > 5;
+🔴 Level 9 — HAVING
+Find countries having more than 10 cities.
+Find countries whose average population is greater than 500000.
+Find countries whose total population is greater than 1000000.
+Find states having more than 2 cities.
+Find countries having maximum population greater than 1000000.
+-- 86
+SELECT COUNTRYCODE, COUNT(*) AS CITY_COUNT
+FROM CITY
+GROUP BY COUNTRYCODE
+HAVING COUNT(*) > 10;
+
+-- 87
+SELECT COUNTRYCODE, AVG(POPULATION) AS AVG_POPULATION
+FROM CITY
+GROUP BY COUNTRYCODE
+HAVING AVG(POPULATION) > 500000;
+
+-- 88
+SELECT COUNTRYCODE, SUM(POPULATION) AS TOTAL_POPULATION
+FROM CITY
+GROUP BY COUNTRYCODE
+HAVING SUM(POPULATION) > 1000000;
+
+-- 89
+SELECT STATE, COUNT(*) AS CITY_COUNT
+FROM STATION
+GROUP BY STATE
+HAVING COUNT(*) > 2;
+
+-- 90
+SELECT COUNTRYCODE, MAX(POPULATION) AS MAX_POPULATION
+FROM CITY
+GROUP BY COUNTRYCODE
+HAVING MAX(POPULATION) > 1000000;
+🔴 Level 10 — ORDER BY
+Sort cities by population ascending.
+Sort cities by population descending.
+Sort cities by name alphabetically.
+Sort cities by name descending.
+Sort cities by country code and population.
+Find the largest city by population.
+Find the smallest city by population.
+Find the top 5 largest cities.
+Find the 5 smallest cities.
+Sort STATION cities by latitude.
+-- 91
+SELECT *
+FROM CITY
+ORDER BY POPULATION ASC;
+
+-- 92
+SELECT *
+FROM CITY
+ORDER BY POPULATION DESC;
+
+-- 93
+SELECT *
+FROM CITY
+ORDER BY NAME ASC;
+
+-- 94
+SELECT *
+FROM CITY
+ORDER BY NAME DESC;
+
+-- 95
+SELECT *
+FROM CITY
+ORDER BY COUNTRYCODE ASC, POPULATION DESC;
+
+-- 96. Largest city
+SELECT *
+FROM CITY
+ORDER BY POPULATION DESC
+FETCH FIRST 1 ROW ONLY;
+
+-- 97. Smallest city
+SELECT *
+FROM CITY
+ORDER BY POPULATION ASC
+FETCH FIRST 1 ROW ONLY;
+
+-- 98. Top 5 largest cities
+SELECT *
+FROM CITY
+ORDER BY POPULATION DESC
+FETCH FIRST 5 ROWS ONLY;
+
+-- 99. 5 smallest cities
+SELECT *
+FROM CITY
+ORDER BY POPULATION ASC
+FETCH FIRST 5 ROWS ONLY;
+
+-- 100. Sort stations by latitude
+SELECT *
+FROM STATION
+ORDER BY LAT_N ASC;
+🔥 Level 11 — DB2 MOD / ANY / ALL
+Find cities having even IDs.
+Find cities having odd IDs.
+Find cities whose population is greater than ANY USA city population.
+Find cities whose population is greater than ALL Japanese city populations.
+Find cities whose population is less than ANY USA city population.
+Find cities whose population is greater than the average population.
+Find cities whose population is equal to the maximum population.
+Find cities whose population is less than the maximum population.
+Find cities whose population is greater than the minimum population.
+Find cities whose population is greater than every city in Japan.
+-- 101. Even station IDs
+SELECT *
+FROM STATION
+WHERE MOD(ID, 2) = 0;
+
+-- 102. Odd station IDs
+SELECT *
+FROM STATION
+WHERE MOD(ID, 2) <> 0;
+
+-- 103. Population greater than ANY USA city
+SELECT *
+FROM CITY
+WHERE POPULATION > ANY
+(
+    SELECT POPULATION
+    FROM CITY
+    WHERE COUNTRYCODE = 'USA'
+);
+
+-- 104. Population greater than ALL Japanese cities
+SELECT *
+FROM CITY
+WHERE POPULATION > ALL
+(
+    SELECT POPULATION
+    FROM CITY
+    WHERE COUNTRYCODE = 'JPN'
+);
+
+-- 105. Population less than ANY USA city
+SELECT *
+FROM CITY
+WHERE POPULATION < ANY
+(
+    SELECT POPULATION
+    FROM CITY
+    WHERE COUNTRYCODE = 'USA'
+);
+
+-- 106. Above average population
+SELECT *
+FROM CITY
+WHERE POPULATION >
+(
+    SELECT AVG(POPULATION)
+    FROM CITY
+);
+
+-- 107. Population equal to maximum
+SELECT *
+FROM CITY
+WHERE POPULATION =
+(
+    SELECT MAX(POPULATION)
+    FROM CITY
+);
+
+-- 108. Less than maximum
+SELECT *
+FROM CITY
+WHERE POPULATION <
+(
+    SELECT MAX(POPULATION)
+    FROM CITY
+);
+
+-- 109. Greater than minimum
+SELECT *
+FROM CITY
+WHERE POPULATION >
+(
+    SELECT MIN(POPULATION)
+    FROM CITY
+);
+
+-- 110. Greater than every Japanese city
+SELECT *
+FROM CITY
+WHERE POPULATION > ALL
+(
+    SELECT POPULATION
+    FROM CITY
+    WHERE COUNTRYCODE = 'JPN'
+);
+🚀 Level 12 — Subqueries
+Find the city with the highest population.
+Find the city with the lowest population.
+Find cities having population above average.
+Find cities having population below average.
+Find USA cities having population above the USA average.
+Find cities having the same population as another city.
+Find cities whose population is greater than the population of city ID 1661.
+Find cities with population equal to the maximum population in USA.
+Find cities with population greater than the minimum population in India.
+Find the second-highest population
+-- 111. Highest population city
+SELECT *
+FROM CITY
+WHERE POPULATION =
+(
+    SELECT MAX(POPULATION)
+    FROM CITY
+);
+
+-- 112. Lowest population city
+SELECT *
+FROM CITY
+WHERE POPULATION =
+(
+    SELECT MIN(POPULATION)
+    FROM CITY
+);
+
+-- 113. Above average
+SELECT *
+FROM CITY
+WHERE POPULATION >
+(
+    SELECT AVG(POPULATION)
+    FROM CITY
+);
+
+-- 114. Below average
+SELECT *
+FROM CITY
+WHERE POPULATION <
+(
+    SELECT AVG(POPULATION)
+    FROM CITY
+);
+
+-- 115. USA cities above USA average
+SELECT *
+FROM CITY
+WHERE COUNTRYCODE = 'USA'
+AND POPULATION >
+(
+    SELECT AVG(POPULATION)
+    FROM CITY
+    WHERE COUNTRYCODE = 'USA'
+);
+
+-- 116. Cities having the same population
+SELECT *
+FROM CITY C1
+WHERE EXISTS
+(
+    SELECT 1
+    FROM CITY C2
+    WHERE C1.POPULATION = C2.POPULATION
+    AND C1.ID <> C2.ID
+);
+
+-- 117. Greater than city ID 1661
+SELECT *
+FROM CITY
+WHERE POPULATION >
+(
+    SELECT POPULATION
+    FROM CITY
+    WHERE ID = 1661
+);
+
+-- 118. Equal to maximum USA population
+SELECT *
+FROM CITY
+WHERE POPULATION =
+(
+    SELECT MAX(POPULATION)
+    FROM CITY
+    WHERE COUNTRYCODE = 'USA'
+);
+
+-- 119. Greater than minimum India population
+SELECT *
+FROM CITY
+WHERE POPULATION >
+(
+    SELECT MIN(POPULATION)
+    FROM CITY
+    WHERE COUNTRYCODE = 'IND'
+);
+
+-- 120. Second-highest population
+SELECT MAX(POPULATION)
+FROM CITY
+WHERE POPULATION <
+(
+    SELECT MAX(POPULATION)
+    FROM CITY
+);
